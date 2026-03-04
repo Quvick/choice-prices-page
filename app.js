@@ -50,29 +50,29 @@ const plans = [
     fee: "3%",
     feeGreen: false,
     feeCondition: "Online payments only",
-    featureTitle: "Everything what you need to start:",
+    featureTitle: "Everything you need to start:",
     features: [
       { icon: "webDesign", title: "Website + Own domain" },
-      { icon: "inTransit", title: "Integrations with curiers services", sub: "Wolt Drive, Foodora Go and others" },
+      { icon: "inTransit", title: "Integrations with courier services", sub: "Wolt Drive, Foodora Go and others" },
       { icon: "qrCode", title: "QR Menu with Ordering" },
       { icon: "nfc", title: "QR Payment" },
       { icon: "donate", title: "Custom Tips features" },
       { icon: "userGroups", title: "Advanced Customer Database and CRM" },
       { icon: "increase", title: "Upsales features" },
       { icon: "redeem", title: "Promocodes" },
-      { icon: "sendEmail", title: "Email Marketing", sub: "Automatited \ retention notifications" },
+      { icon: "sendEmail", title: "Email Marketing", sub: "Automated retention notifications" },
       { icon: "speed", title: "SEO Optimization" },
-      { icon: "laptopMetrics", title: "Marketing Analytics", sub: "Google tag, Facebook pixel Google integatreiton" },
-      { icon: "controlPanel", title: "Dashboard with all channels and cleints overview" },
+      { icon: "laptopMetrics", title: "Marketing Analytics", sub: "Google tag, Facebook pixel Google integration" },
+      { icon: "controlPanel", title: "Dashboard with all channels and clients overview" },
       { icon: "bestSeller", title: "Best seller analytics" },
       { icon: "sparkling", title: "AI Photo editor", sub: "20 generations/mo" },
       { icon: "customerSupport", title: "Support", sub: "Standard level" }
     ],
     offPlan: [
-      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, managment tools", price: "EUR40" },
+      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, management tools", price: "EUR40" },
       { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "EUR40" },
-      { icon: "smartphone", title: "App for own curiers", sub: "Google integrations, calendar, managment tools", price: "EUR40" },
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools", price: "EUR40" }
+      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "EUR40" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "EUR40" }
     ]
   },
   {
@@ -80,9 +80,9 @@ const plans = [
     descriptionStrong: "For busy places ready to grow sales.",
     description: "Add reservations, better tools, and more ways to convert guests.",
     prices: {
-      monthly: "â‚¬40/mo",
-      month12: "â‚¬36/mo",
-      month24: "â‚¬31/mo"
+      monthly: "€40/mo",
+      month12: "€36/mo",
+      month24: "€31/mo"
     },
     ctaText: "Start a free trial",
     ctaClass: "accent",
@@ -91,14 +91,14 @@ const plans = [
     feeCondition: "Online payments only",
     featureTitle: "Everything in the Basic Plan, plus:",
     features: [
-      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, managment tools" },
+      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, management tools" },
       { icon: "sparkling", title: "AI Photo editor", sub: "40 generations/mo" },
       { icon: "customerSupport", title: "Support", sub: "Standard level" }
     ],
     offPlan: [
       { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "EUR40" },
-      { icon: "smartphone", title: "App for own curiers", sub: "Google integrations, calendar, managment tools", price: "EUR40" },
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools", price: "EUR40" }
+      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "EUR40" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "EUR40" }
     ]
   },
   {
@@ -107,9 +107,9 @@ const plans = [
     descriptionStrong: "For restaurants focused on retention.",
     description: "Loyalty, gifts, SMS marketing, and advanced growth features.",
     prices: {
-      monthly: "â‚¬85/mo",
-      month12: "â‚¬77/mo",
-      month24: "â‚¬66/mo"
+      monthly: "€85/mo",
+      month12: "€77/mo",
+      month24: "€66/mo"
     },
     ctaText: "Start a free trial",
     ctaClass: "accent",
@@ -119,16 +119,16 @@ const plans = [
     featureTitle: "Everything in the Standard Plan, plus:",
     features: [
       { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet" },
-      { icon: "smartphone", title: "App for own curiers", sub: "Google integrations, calendar, managment tools" },
+      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools" },
       { icon: "star", title: "Bonus points (Cashback)" },
       { icon: "christmasGift", title: "Presents (Gifts)" },
       { icon: "originalSize", title: "1+1 bonus system (Happy hours)" },
-      { icon: "pushNotifications", title: "SMS Marketing", sub: "Automatited \ retention notifications" },
+      { icon: "pushNotifications", title: "SMS Marketing", sub: "Automated retention notifications" },
       { icon: "sparkling", title: "AI Photo editor", sub: "60 generations/mo" },
       { icon: "customerSupport", title: "Support", sub: "Priority level" }
     ],
     offPlan: [
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools", price: "EUR40" }
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "EUR40" }
     ]
   },
   {
@@ -136,9 +136,9 @@ const plans = [
     descriptionStrong: "For multi-location and advanced operations.",
     description: "POS, AI features, deeper analytics, and enterprise support.",
     prices: {
-      monthly: "â‚¬125/mo",
-      month12: "â‚¬113/mo",
-      month24: "â‚¬98/mo"
+      monthly: "€125/mo",
+      month12: "€113/mo",
+      month24: "€98/mo"
     },
     ctaText: "Contact sales",
     ctaClass: "dark",
@@ -147,13 +147,13 @@ const plans = [
     feeCondition: "Online payments & Cash",
     featureTitle: "Everything in the Smart Plan, plus:",
     features: [
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools" },
       { icon: "posTerminal", title: "POS Integration", sub: "Poster, Rkeeper, Dotykacka, etc" },
-      { icon: "networkingManager", title: "Cross restaurants loalty program", sub: "Chains or Multibrand locations" },
+      { icon: "networkingManager", title: "Cross-restaurant loyalty program", sub: "Chains or multibrand locations" },
       { icon: "futures", title: "Multi-location Analytics" },
-      { icon: "group", title: "Best cleints and lost cleint overivew" },
+      { icon: "group", title: "Best clients and lost client overview" },
       { icon: "sparkling", title: "AI Photo editor", sub: "200 generations/mo + expansion" },
-      { icon: "sparkling", title: "AI Text edit and transaltions" },
+      { icon: "sparkling", title: "AI text editing and translations" },
       { icon: "manager", title: "Support", sub: "Dedicated key account manager (CSM)" }
     ],
     aiAssistants: [
@@ -235,7 +235,7 @@ function featuresBlock(plan) {
       <ul class="feature-list">
         ${plan.features.map(featureHtml).join("")}
       </ul>
-      ${plan.aiAssistants ? `<p class="ai-label">AI assistans <span>NEW</span></p><ul class="feature-list">${plan.aiAssistants.map(featureHtml).join("")}</ul>` : ""}
+      ${plan.aiAssistants ? `<p class="ai-label">AI assistants <span>NEW</span></p><ul class="feature-list">${plan.aiAssistants.map(featureHtml).join("")}</ul>` : ""}
     </article>
   `;
 }
@@ -365,4 +365,5 @@ mobileLayout();
 initPeriodTabs();
 initMobileLocationSwitch();
 initStickyTopTabs();
+
 

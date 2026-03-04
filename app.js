@@ -1,4 +1,4 @@
-const icons = {
+﻿const icons = {
   webDesign: "./assets/webDesign.svg",
   inTransit: "./assets/inTransit.svg",
   qrCode: "./assets/qrCode.svg",
@@ -69,10 +69,10 @@ const plans = [
       { icon: "customerSupport", title: "Support", sub: "Standard level" }
     ],
     offPlan: [
-      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, management tools", price: "EUR40" },
-      { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "EUR40" },
-      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "EUR40" },
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "EUR40" }
+      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, management tools", price: "\u20AC40" },
+      { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "\u20AC40" },
+      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "\u20AC40" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "\u20AC40" }
     ]
   },
   {
@@ -96,9 +96,9 @@ const plans = [
       { icon: "customerSupport", title: "Support", sub: "Standard level" }
     ],
     offPlan: [
-      { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "EUR40" },
-      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "EUR40" },
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "EUR40" }
+      { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "\u20AC40" },
+      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "\u20AC40" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "\u20AC40" }
     ]
   },
   {
@@ -128,7 +128,7 @@ const plans = [
       { icon: "customerSupport", title: "Support", sub: "Priority level" }
     ],
     offPlan: [
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "EUR40" }
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "\u20AC40" }
     ]
   },
   {
@@ -365,5 +365,6 @@ mobileLayout();
 initPeriodTabs();
 initMobileLocationSwitch();
 initStickyTopTabs();
+
 
 

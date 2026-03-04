@@ -241,6 +241,8 @@ h1 {
   font-size: 14px;
   font-weight: 700;
   line-height: 24px;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
 .cta.light {
@@ -257,6 +259,12 @@ h1 {
 .cta.dark {
   background: var(--text);
   color: var(--white);
+}
+
+.cta:hover {
+  background: #ff7a52;
+  color: var(--white);
+  border-color: #ff7a52;
 }
 
 .section-label {

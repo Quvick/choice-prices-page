@@ -1,0 +1,520 @@
+:root {
+  --bg: #f3f3f5;
+  --text: #222222;
+  --text-secondary: #333333;
+  --muted: #828282;
+  --line: #e8e8ea;
+  --accent: #fe6339;
+  --green: #27ae60;
+  --green-strong: #15b839;
+  --purple: #9b51e0;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+
+.top-area {
+  width: 100%;
+  background: var(--white);
+}
+
+.hero-wrap {
+  width: min(100%, 1286px);
+  margin: 0 auto;
+}
+
+.page {
+  width: min(100%, 1380px);
+  margin: 0 auto;
+  padding: 40px 24px 40px;
+}
+
+.hero {
+  text-align: center;
+  padding: 48px 0 32px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+h1 {
+  margin: 8px auto 0;
+  font-size: 48px;
+  line-height: 56px;
+  max-width: 1280px;
+  font-weight: 800;
+}
+
+.subhead {
+  margin: 8px auto 0;
+  font-size: 24px;
+  line-height: 40px;
+  color: var(--text-secondary);
+  max-width: 980px;
+}
+
+.top-tabs {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--white);
+}
+
+.tabs-wrap {
+  width: min(100%, 1286px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tabs-left,
+.tabs-right {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.tab {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  padding: 16px 0 14px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.tab:hover {
+  color: var(--accent);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.mobile-location-switch {
+  display: none;
+}
+
+.pill {
+  border: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  background: transparent;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.pill.active {
+  color: var(--accent);
+  background: var(--white);
+}
+
+.pricing {
+  padding-top: 0;
+}
+
+.desktop-pricing {
+  max-width: 1286px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 0 64px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+.mobile-pricing {
+  display: none;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+  background: var(--line);
+}
+
+.header-card,
+.block-card {
+  background: var(--white);
+}
+
+.header-card {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  gap: 16px;
+}
+
+.plan-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.plan-name {
+  margin: 0;
+  font-size: 32px;
+  line-height: 32px;
+  font-weight: 900;
+}
+
+.popular-tag {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff6b1b;
+  background: rgba(255, 150, 27, 0.1);
+  border-radius: 6px;
+  padding: 4px 8px;
+  line-height: 16px;
+}
+
+.plan-desc {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #787878;
+}
+
+.plan-desc strong {
+  color: #555;
+  font-weight: 600;
+}
+
+.price {
+  margin: 4px 0 0;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.price.free {
+  color: var(--green);
+}
+
+.cta {
+  border: 0;
+  border-radius: 8px;
+  width: 100%;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.cta.light {
+  background: var(--white);
+  border: 2px solid var(--bg);
+  color: var(--text);
+}
+
+.cta.accent {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.cta.dark {
+  background: var(--text);
+  color: var(--white);
+}
+
+.section-label {
+  background: var(--bg);
+  text-align: center;
+  padding: 4px 12px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 20px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.fee-card {
+  background: var(--white);
+  padding: 20px 24px;
+  min-height: 84px;
+}
+
+.fee-line {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.fee-value {
+  margin-left: 2px;
+  color: #ff6b1b;
+  font-weight: 500;
+}
+
+.fee-value.good {
+  color: var(--green-strong);
+}
+
+.fee-condition {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.fee-condition strong {
+  color: var(--text);
+  font-weight: 400;
+}
+
+.features-card {
+  background: var(--white);
+  padding: 20px 24px;
+  min-height: 620px;
+}
+
+.group-title {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.group-title span {
+  color: var(--muted);
+}
+
+.feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 8px;
+}
+
+.feature-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  object-fit: contain;
+}
+
+.feature-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.feature-sub {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--muted);
+}
+
+.feature-price {
+  margin: 0;
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.ai-label {
+  margin: 16px 0 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.ai-label span {
+  margin-left: 6px;
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--purple);
+  background: rgba(155, 81, 224, 0.1);
+  border-radius: 6px;
+  padding: 2px 6px;
+  vertical-align: middle;
+}
+
+.offplan-card {
+  background: var(--white);
+  padding: 20px 24px;
+  min-height: 320px;
+}
+
+@media (max-width: 980px) {
+  .page {
+    padding: 0 0 24px;
+  }
+
+  .hero-wrap {
+    width: 100%;
+  }
+
+  .hero {
+    padding: 32px 0 8px;
+  }
+
+  .eyebrow {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  h1 {
+    font-size: 32px;
+    line-height: 40px;
+    padding: 0 24px;
+    max-width: none;
+  }
+
+  .subhead {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 0 24px;
+    margin-top: 0;
+  }
+
+  .mobile-location-switch {
+    margin: 16px 24px 0;
+    border-radius: 10px;
+    background: var(--bg);
+    padding: 2px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-location-switch .switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(50% - 2px);
+    height: calc(100% - 4px);
+    border-radius: 8px;
+    background: var(--white);
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .mobile-location-switch[data-location="multi"] .switch-thumb {
+    transform: translateX(100%);
+  }
+
+  .mobile-location-switch .pill {
+    flex: 1 1 50%;
+    max-width: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-location-switch .pill.active {
+    background: transparent;
+  }
+
+  .top-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0;
+    gap: 24px;
+    border-top: 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .top-tabs.is-stuck {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .tabs-wrap {
+    width: auto;
+    padding: 0 24px;
+  }
+
+  .tabs-left {
+    display: none;
+  }
+
+  .desktop-pricing {
+    display: none;
+  }
+
+  .mobile-pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 24px 24px;
+  }
+
+  .mobile-card {
+    border-radius: 16px;
+    box-shadow: 0 0 64px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+  }
+
+  .features-card,
+  .offplan-card {
+    min-height: 0;
+  }
+
+  .header-card,
+  .fee-card,
+  .features-card,
+  .offplan-card {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .mobile-card .header-card {
+    justify-content: flex-start;
+    gap: 0;
+    min-height: 0;
+  }
+
+  .mobile-card .header-card .cta {
+    margin-top: 24px;
+  }
+
+  .plan-name {
+    font-size: 24px;
+  }
+
+  .ai-label {
+    margin-top: 20px;
+  }
+}

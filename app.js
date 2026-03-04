@@ -80,9 +80,9 @@ const plans = [
     descriptionStrong: "For busy places ready to grow sales.",
     description: "Add reservations, better tools, and more ways to convert guests.",
     prices: {
-      monthly: "€40/mo",
-      month12: "€36/mo",
-      month24: "€31/mo"
+      monthly: "\u20AC40/mo",
+      month12: "\u20AC36/mo",
+      month24: "\u20AC31/mo"
     },
     ctaText: "Start a free trial",
     ctaClass: "accent",
@@ -107,9 +107,9 @@ const plans = [
     descriptionStrong: "For restaurants focused on retention.",
     description: "Loyalty, gifts, SMS marketing, and advanced growth features.",
     prices: {
-      monthly: "€85/mo",
-      month12: "€77/mo",
-      month24: "€66/mo"
+      monthly: "\u20AC85/mo",
+      month12: "\u20AC77/mo",
+      month24: "\u20AC66/mo"
     },
     ctaText: "Start a free trial",
     ctaClass: "accent",
@@ -136,9 +136,9 @@ const plans = [
     descriptionStrong: "For multi-location and advanced operations.",
     description: "POS, AI features, deeper analytics, and enterprise support.",
     prices: {
-      monthly: "€125/mo",
-      month12: "€113/mo",
-      month24: "€98/mo"
+      monthly: "\u20AC125/mo",
+      month12: "\u20AC113/mo",
+      month24: "\u20AC98/mo"
     },
     ctaText: "Contact sales",
     ctaClass: "dark",

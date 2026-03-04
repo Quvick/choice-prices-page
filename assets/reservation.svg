@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Reservation 1" clip-path="url(#clip0_9018_4286)">
+<path id="Vector" d="M2.5 4C2.27734 4 2.08203 4.14844 2.01953 4.36328V4.36719L0.0195313 11.3633C-0.0234375 11.5156 0.0078125 11.6758 0.101563 11.8008C0.195313 11.9258 0.34375 12 0.5 12H3.05859L3.14062 12.5703C3.17187 12.8164 3.38281 13 3.63281 13H15.5C15.6523 13 15.8008 12.9297 15.8945 12.8086C15.9883 12.6875 16.0234 12.5273 15.9844 12.3789L13.9844 4.37891C13.9297 4.15625 13.7305 4 13.5 4H2.5ZM3.07422 5H13.1094L14.8594 12H4.06641L3.07422 5ZM2.33594 6.89453L2.91406 11H1.16406L2.33594 6.89453ZM5 8V9H13V8H5Z" fill="var(--fill-0, black)"/>
+</g>
+<defs>
+<clipPath id="clip0_9018_4286">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

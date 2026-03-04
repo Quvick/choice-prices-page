@@ -189,7 +189,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
 .plan-name {

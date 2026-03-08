@@ -217,6 +217,13 @@ h1 {
   background: var(--line);
 }
 
+.grid-plans {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 4), minmax(0, 1fr));
+  gap: 2px;
+  background: var(--line);
+}
+
 .header-card,
 .block-card {
   background: var(--white);

@@ -220,7 +220,18 @@ function getPlanPriceLabel(plan) {
   return `\u20AC${formatPriceNumber(finalPrice)}/mo`;
 }
 
-function planHeader(plan, index) {
+function getVisiblePlans() {
+  if (currentLocationMode === "multi") {
+    return plans.filter((plan) => plan.name !== "Basic");
+  }
+  return plans;
+}
+
+function getPlanByName(name) {
+  return plans.find((plan) => plan.name === name);
+}
+
+function planHeader(plan) {
   const price = getPlanPriceLabel(plan);
   return `
     <article class="header-card">
@@ -230,7 +241,7 @@ function planHeader(plan, index) {
           ${plan.popular ? '<p class="popular-tag">POPULAR</p>' : ""}
         </div>
         <p class="plan-desc"><strong>${plan.descriptionStrong}</strong> ${plan.description}</p>
-        <p class="price ${plan.priceClass || ""}" data-plan-index="${index}">${price}</p>
+        <p class="price ${plan.priceClass || ""}" data-plan-name="${plan.name}">${price}</p>
       </div>
       <button class="cta ${plan.ctaClass}">${plan.ctaText}</button>
     </article>
@@ -276,23 +287,24 @@ function offPlanBlock(plan) {
 }
 
 function desktopLayout() {
+  const visiblePlans = getVisiblePlans();
   const root = document.getElementById("desktopPricing");
   root.innerHTML = `
-    <div class="grid-4">${plans.map((plan, index) => planHeader(plan, index)).join("")}</div>
+    <div class="grid-plans" style="--columns:${visiblePlans.length}">${visiblePlans.map((plan) => planHeader(plan)).join("")}</div>
     <p class="section-label">Order fee:</p>
-    <div class="grid-4">${plans.map(feeBlock).join("")}</div>
+    <div class="grid-plans" style="--columns:${visiblePlans.length}">${visiblePlans.map(feeBlock).join("")}</div>
     <p class="section-label">Features:</p>
-    <div class="grid-4">${plans.map(featuresBlock).join("")}</div>
+    <div class="grid-plans" style="--columns:${visiblePlans.length}">${visiblePlans.map(featuresBlock).join("")}</div>
     <p class="section-label">Off-plan features upon request:</p>
-    <div class="grid-4">${plans.map(offPlanBlock).join("")}</div>
+    <div class="grid-plans" style="--columns:${visiblePlans.length}">${visiblePlans.map(offPlanBlock).join("")}</div>
   `;
 }
 
-function mobileCard(plan, index) {
+function mobileCard(plan) {
   const hasOffPlan = Array.isArray(plan.offPlan) && plan.offPlan.length > 0;
   return `
     <article class="mobile-card">
-      ${planHeader(plan, index)}
+      ${planHeader(plan)}
       <p class="section-label">Order fee:</p>
       ${feeBlock(plan)}
       <p class="section-label">Features:</p>
@@ -303,17 +315,22 @@ function mobileCard(plan, index) {
 }
 
 function mobileLayout() {
+  const visiblePlans = getVisiblePlans();
   const root = document.getElementById("mobilePricing");
-  root.innerHTML = plans.map((plan, index) => mobileCard(plan, index)).join("");
+  root.innerHTML = visiblePlans.map((plan) => mobileCard(plan)).join("");
 }
 
 function updatePriceTexts() {
-  document.querySelectorAll(".price[data-plan-index]").forEach((node) => {
-    const index = Number(node.dataset.planIndex);
-    const plan = plans[index];
+  document.querySelectorAll(".price[data-plan-name]").forEach((node) => {
+    const plan = getPlanByName(node.dataset.planName);
     if (!plan) return;
     node.textContent = getPlanPriceLabel(plan);
   });
+}
+
+function renderPricing() {
+  desktopLayout();
+  mobileLayout();
 }
 
 function setPeriod(period) {
@@ -369,7 +386,7 @@ function setLocationMode(mode) {
     mobileChainTabs.classList.toggle("visible", showChain);
   }
 
-  updatePriceTexts();
+  renderPricing();
 }
 
 function initLocationControls() {

@@ -90,6 +90,48 @@ h1 {
   align-items: center;
 }
 
+.chain-tabs {
+  display: none;
+  gap: 2px;
+  align-items: center;
+  background: rgba(17, 17, 75, 0.05);
+  border-radius: 8px;
+  padding: 2px;
+  overflow: hidden;
+}
+
+.chain-tabs.visible {
+  display: flex;
+}
+
+.chain-tab {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  cursor: pointer;
+  min-width: max-content;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.chain-tab[data-chain="loc2"] {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.chain-tab.active {
+  background: var(--white);
+  color: var(--accent);
+}
+
 .tab {
   appearance: none;
   -webkit-appearance: none;
@@ -121,6 +163,10 @@ h1 {
 }
 
 .mobile-location-switch {
+  display: none;
+}
+
+.mobile-chain-tabs {
   display: none;
 }
 
@@ -469,6 +515,31 @@ h1 {
 
   .mobile-location-switch .pill.active {
     background: transparent;
+  }
+
+  .mobile-chain-tabs {
+    margin: 12px 24px 0;
+    display: none;
+    gap: 2px;
+    align-items: center;
+    overflow: hidden;
+    background: rgba(17, 17, 75, 0.05);
+    border-radius: 8px;
+    padding: 2px;
+  }
+
+  .mobile-chain-tabs.visible {
+    display: flex;
+  }
+
+  .mobile-chain-tabs .chain-tab {
+    flex: 1 1 0;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .mobile-chain-tabs .chain-tab[data-chain="loc2"] {
+    flex: 0 0 auto;
   }
 
   .top-tabs {

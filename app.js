@@ -1,9 +1,12 @@
-﻿const icons = {
+const icons = {
   webDesign: "./assets/webDesign.svg",
+  clickCollect: "./assets/clickCollect.svg",
   inTransit: "./assets/inTransit.svg",
   qrCode: "./assets/qrCode.svg",
+  restaurantTable: "./assets/restaurantTable.svg",
   nfc: "./assets/nfc.svg",
   donate: "./assets/donate.svg",
+  bankBuilding: "./assets/bankBuilding.svg",
   userGroups: "./assets/userGroups.svg",
   increase: "./assets/increase.svg",
   redeem: "./assets/redeem.svg",
@@ -16,6 +19,7 @@
   customerSupport: "./assets/customerSupport.svg",
   reservation: "./assets/reservation.svg",
   addNode: "./assets/addNode.svg",
+  editNode: "./assets/editNode.svg",
   smartphone: "./assets/smartphone.svg",
   smartphone2: "./assets/smartphone2.svg",
   star: "./assets/star.svg",
@@ -44,6 +48,29 @@ const chainDiscounts = {
   loc20: 40
 };
 
+const featureHints = {
+  waiterTips: [
+    "Guests can tip right in checkout.",
+    "Tips go directly to your team.",
+    "You control when it is shown."
+  ],
+  restaurantTips: [
+    "Add a separate house tip option.",
+    "Useful for shared team bonuses.",
+    "Configured per location."
+  ],
+  collectionPoint: [
+    "Unify aggregator pickups in one flow.",
+    "One tablet for all pickup orders.",
+    "Speeds up handoff at rush hour."
+  ],
+  marketplaceMenu: [
+    "Edit marketplace menus from one place.",
+    "Sync updates to connected channels.",
+    "Reduce manual menu mismatches."
+  ]
+};
+
 const plans = [
   {
     name: "Basic",
@@ -60,29 +87,32 @@ const plans = [
     fee: "3%",
     feeGreen: false,
     feeCondition: "Online payments only",
-    featureTitle: "Everything you need to start:",
+    featureTitle: "Everything what you need to start:",
     features: [
       { icon: "webDesign", title: "Website + Own domain" },
-      { icon: "inTransit", title: "Integrations with courier services", sub: "Wolt Drive, Foodora Go and others" },
-      { icon: "qrCode", title: "QR Menu with Ordering" },
-      { icon: "nfc", title: "QR Payment" },
-      { icon: "donate", title: "Custom Tips features" },
+      { icon: "clickCollect", title: "Online Ordering", sub: "Delivery own + Takeaway" },
+      { icon: "inTransit", title: "Integrations with curiers services", sub: "Last-Mile Aggregation" },
+      { icon: "qrCode", title: "QR Menu" },
+      { icon: "restaurantTable", title: "QR table ordering" },
+      { icon: "nfc", title: "QR Payment at the table" },
+      { icon: "donate", title: "Waitors tips", info: true, hintKey: "waiterTips" },
+      { icon: "bankBuilding", title: "Restaurants tips", info: true, hintKey: "restaurantTips" },
       { icon: "userGroups", title: "Advanced Customer Database and CRM" },
       { icon: "increase", title: "Upsales features" },
-      { icon: "redeem", title: "Promocodes" },
-      { icon: "sendEmail", title: "Email Marketing", sub: "Automated retention notifications" },
+      { icon: "redeem", title: "Loyalty: Promocodes" },
+      { icon: "sendEmail", title: "Email Marketing", sub: "Automatited \\ retention notifications" },
       { icon: "speed", title: "SEO Optimization" },
-      { icon: "laptopMetrics", title: "Marketing Analytics", sub: "Google tag, Facebook pixel Google integration" },
-      { icon: "controlPanel", title: "Dashboard with all channels and clients overview" },
+      { icon: "laptopMetrics", title: "Marketing Analytics", sub: "Google tag, Facebook pixel Google integatreiton" },
+      { icon: "controlPanel", title: "Dashboard with all chanels and clients overview" },
       { icon: "bestSeller", title: "Best seller analytics" },
       { icon: "sparkling", title: "AI Photo editor", sub: "20 generations/mo" },
       { icon: "customerSupport", title: "Support", sub: "Standard level" }
     ],
     offPlan: [
-      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, management tools", price: "\u20AC40" },
+      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, managment tools", price: "\u20AC40" },
       { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "\u20AC40" },
-      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "\u20AC40" },
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "\u20AC40" }
+      { icon: "smartphone", title: "App for own curiers", sub: "Google integrations, calendar, managment tools", price: "\u20AC40" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools", price: "\u20AC40" }
     ]
   },
   {
@@ -101,14 +131,14 @@ const plans = [
     feeCondition: "Online payments only",
     featureTitle: "Everything in the Basic Plan, plus:",
     features: [
-      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, management tools" },
+      { icon: "reservation", title: "Table reservations", sub: "Google integrations, calendar, managment tools" },
       { icon: "sparkling", title: "AI Photo editor", sub: "40 generations/mo" },
       { icon: "customerSupport", title: "Support", sub: "Standard level" }
     ],
     offPlan: [
       { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", price: "\u20AC40" },
-      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools", price: "\u20AC40" },
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "\u20AC40" }
+      { icon: "smartphone", title: "App for own curiers", sub: "Google integrations, calendar, managment tools", price: "\u20AC40" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools", price: "\u20AC40" }
     ]
   },
   {
@@ -128,17 +158,18 @@ const plans = [
     feeCondition: "Online payments & Cash",
     featureTitle: "Everything in the Standard Plan, plus:",
     features: [
-      { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet" },
-      { icon: "smartphone", title: "App for own couriers", sub: "Google integrations, calendar, management tools" },
-      { icon: "star", title: "Bonus points (Cashback)" },
-      { icon: "christmasGift", title: "Presents (Gifts)" },
-      { icon: "originalSize", title: "1+1 bonus system (Happy hours)" },
-      { icon: "pushNotifications", title: "SMS Marketing", sub: "Automated retention notifications" },
+      { icon: "addNode", title: "Collection point", sub: "Wolt, Glovo, Bolt orders on 1 tablet", info: true, hintKey: "collectionPoint" },
+      { icon: "editNode", title: "Marketplaces Menu Management", info: true, hintKey: "marketplaceMenu" },
+      { icon: "smartphone", title: "App for own curiers", sub: "Google integrations, calendar, managment tools" },
+      { icon: "star", title: "Loyalty: Bonus points (Cashback)" },
+      { icon: "christmasGift", title: "Loyalty: Presents (Gifts)" },
+      { icon: "originalSize", title: "Loyalty: 1+1 bonus system (Happy hours)" },
+      { icon: "pushNotifications", title: "SMS Marketing", sub: "Automatited \\ retention notifications" },
       { icon: "sparkling", title: "AI Photo editor", sub: "60 generations/mo" },
       { icon: "customerSupport", title: "Support", sub: "Priority level" }
     ],
     offPlan: [
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools", price: "\u20AC40" }
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools", price: "\u20AC40" }
     ]
   },
   {
@@ -157,13 +188,13 @@ const plans = [
     feeCondition: "Online payments & Cash",
     featureTitle: "Everything in the Smart Plan, plus:",
     features: [
-      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, management tools" },
+      { icon: "smartphone2", title: "Own restaurant app", sub: "Google integrations, calendar, managment tools" },
       { icon: "posTerminal", title: "POS Integration", sub: "Poster, Rkeeper, Dotykacka, etc" },
-      { icon: "networkingManager", title: "Cross-restaurant loyalty program", sub: "Chains or multibrand locations" },
+      { icon: "networkingManager", title: "Cross restaurants loalty program", sub: "Chains or Multibrand locations" },
       { icon: "futures", title: "Multi-location Analytics" },
-      { icon: "group", title: "Best clients and lost client overview" },
+      { icon: "group", title: "Best clients and lost clients overivew" },
       { icon: "sparkling", title: "AI Photo editor", sub: "200 generations/mo + expansion" },
-      { icon: "sparkling", title: "AI text editing and translations" },
+      { icon: "sparkling", title: "AI Text edit and transaltions" },
       { icon: "manager", title: "Support", sub: "Dedicated key account manager (CSM)" }
     ],
     aiAssistants: [
@@ -180,26 +211,48 @@ function icon(iconKey) {
   return `<img class="feature-icon" src="${src}" alt="" loading="lazy" />`;
 }
 
-function featureHtml(item) {
+function featureTitleHtml(item) {
   return `
-    <li class="feature-item">
+    <p class="feature-text">
+      ${item.title}
+      ${item.info ? '<span class="feature-info" aria-hidden="true">i</span>' : ""}
+    </p>
+  `;
+}
+
+function featureTooltipHtml(item) {
+  if (!item.info || !item.hintKey || !featureHints[item.hintKey]) return "";
+  return `
+    <div class="feature-tooltip" role="note" aria-hidden="true">
+      ${featureHints[item.hintKey].map((line) => `<p>${line}</p>`).join("")}
+    </div>
+  `;
+}
+
+function featureHtml(item) {
+  const itemClass = item.info && item.hintKey ? "feature-item has-info" : "feature-item";
+  return `
+    <li class="${itemClass}" ${item.hintKey ? `data-hint-key="${item.hintKey}" data-hint-title="${item.title}"` : ""}>
       ${icon(item.icon)}
       <div>
-        <p class="feature-text">${item.title}</p>
+        ${featureTitleHtml(item)}
         ${item.sub ? `<p class="feature-sub">${item.sub}</p>` : ""}
+        ${featureTooltipHtml(item)}
       </div>
     </li>
   `;
 }
 
 function offPlanHtml(item) {
+  const itemClass = item.info && item.hintKey ? "feature-item has-info" : "feature-item";
   return `
-    <li class="feature-item">
+    <li class="${itemClass}" ${item.hintKey ? `data-hint-key="${item.hintKey}" data-hint-title="${item.title}"` : ""}>
       ${icon(item.icon)}
       <div>
-        <p class="feature-text">${item.title}</p>
+        ${featureTitleHtml(item)}
         ${item.price ? `<p class="feature-price">${item.price}</p>` : ""}
         ${item.sub ? `<p class="feature-sub">${item.sub}</p>` : ""}
+        ${featureTooltipHtml(item)}
       </div>
     </li>
   `;
@@ -245,7 +298,7 @@ function getEffectivePlan(plan) {
   const tableReservationsFeature = {
     icon: "reservation",
     title: "Table reservations",
-    sub: "Google integrations, calendar, management tools"
+    sub: "Google integrations, calendar, managment tools"
   };
 
   const transformedFeatures = basicPlan.features.map((feature) => {
@@ -255,7 +308,7 @@ function getEffectivePlan(plan) {
     return { ...feature };
   });
 
-  const customTipsIndex = transformedFeatures.findIndex((feature) => feature.title === "Custom Tips features");
+  const customTipsIndex = transformedFeatures.findIndex((feature) => feature.title === "Waitors tips");
   if (customTipsIndex >= 0) {
     transformedFeatures.splice(customTipsIndex + 1, 0, tableReservationsFeature);
   } else {
@@ -508,6 +561,76 @@ function initMobileFeatureToggle() {
   root.dataset.featureToggleBound = "1";
 }
 
+function initFeatureHints() {
+  const root = document.body;
+  if (!root || root.dataset.featureHintsBound === "1") return;
+  const mobileQuery = window.matchMedia("(max-width: 980px)");
+
+  const modal = document.createElement("div");
+  modal.className = "feature-hint-modal";
+  modal.innerHTML = `
+    <div class="feature-hint-backdrop" data-hint-close="backdrop"></div>
+    <div class="feature-hint-sheet" role="dialog" aria-modal="true" aria-label="Feature hint">
+      <button class="feature-hint-close" type="button" aria-label="Close hint" data-hint-close="button">&times;</button>
+      <p class="feature-hint-title"></p>
+      <div class="feature-hint-lines"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const modalTitle = modal.querySelector(".feature-hint-title");
+  const modalLines = modal.querySelector(".feature-hint-lines");
+
+  const closeHintModal = () => {
+    modal.classList.remove("is-open");
+    document.body.classList.remove("hint-modal-open");
+  };
+
+  const openHintModal = (title, hintKey) => {
+    const lines = featureHints[hintKey] || [];
+    if (!lines.length) return;
+    modalTitle.textContent = title || "Hint";
+    modalLines.innerHTML = lines.map((line) => `<p>${line}</p>`).join("");
+    modal.classList.add("is-open");
+    document.body.classList.add("hint-modal-open");
+  };
+
+  document.addEventListener("click", (event) => {
+    const closeTrigger = event.target.closest("[data-hint-close]");
+    if (closeTrigger) {
+      closeHintModal();
+      return;
+    }
+
+    const item = event.target.closest(".feature-item.has-info");
+    if (!item || !mobileQuery.matches) {
+      return;
+    }
+
+    const hintKey = item.dataset.hintKey;
+    const hintTitle = item.dataset.hintTitle;
+    if (!hintKey) return;
+    event.preventDefault();
+    openHintModal(hintTitle, hintKey);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeHintModal();
+    }
+  });
+
+  if (typeof mobileQuery.addEventListener === "function") {
+    mobileQuery.addEventListener("change", (event) => {
+      if (!event.matches) {
+        closeHintModal();
+      }
+    });
+  }
+
+  root.dataset.featureHintsBound = "1";
+}
+
 function initStickyTopTabs() {
   const tabs = document.querySelector(".top-tabs");
   const sentinel = document.querySelector(".tabs-sticky-sentinel");
@@ -566,7 +689,5 @@ mobileLayout();
 initPeriodTabs();
 initLocationControls();
 initMobileFeatureToggle();
+initFeatureHints();
 initStickyTopTabs();
-
-
-

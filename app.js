@@ -231,19 +231,57 @@ function getPlanByName(name) {
   return plans.find((plan) => plan.name === name);
 }
 
+function getEffectivePlan(plan) {
+  if (currentLocationMode !== "multi" || plan.name !== "Standard") {
+    return plan;
+  }
+
+  const basicPlan = getPlanByName("Basic");
+  if (!basicPlan) {
+    return plan;
+  }
+
+  const tableReservationsFeature = {
+    icon: "reservation",
+    title: "Table reservations",
+    sub: "Google integrations, calendar, management tools"
+  };
+
+  const transformedFeatures = basicPlan.features.map((feature) => {
+    if (feature.title === "AI Photo editor") {
+      return { ...feature, sub: "40 generations/mo" };
+    }
+    return { ...feature };
+  });
+
+  const customTipsIndex = transformedFeatures.findIndex((feature) => feature.title === "Custom Tips features");
+  if (customTipsIndex >= 0) {
+    transformedFeatures.splice(customTipsIndex + 1, 0, tableReservationsFeature);
+  } else {
+    transformedFeatures.push(tableReservationsFeature);
+  }
+
+  return {
+    ...plan,
+    featureTitle: "Everything you need to start:",
+    features: transformedFeatures
+  };
+}
+
 function planHeader(plan) {
+  const effectivePlan = getEffectivePlan(plan);
   const price = getPlanPriceLabel(plan);
   return `
     <article class="header-card">
       <div>
         <div class="plan-top">
-          <p class="plan-name">${plan.name}</p>
-          ${plan.popular ? '<p class="popular-tag">POPULAR</p>' : ""}
+          <p class="plan-name">${effectivePlan.name}</p>
+          ${effectivePlan.popular ? '<p class="popular-tag">POPULAR</p>' : ""}
         </div>
-        <p class="plan-desc"><strong>${plan.descriptionStrong}</strong> ${plan.description}</p>
-        <p class="price ${plan.priceClass || ""}" data-plan-name="${plan.name}">${price}</p>
+        <p class="plan-desc"><strong>${effectivePlan.descriptionStrong}</strong> ${effectivePlan.description}</p>
+        <p class="price ${effectivePlan.priceClass || ""}" data-plan-name="${effectivePlan.name}">${price}</p>
       </div>
-      <button class="cta ${plan.ctaClass}">${plan.ctaText}</button>
+      <button class="cta ${effectivePlan.ctaClass}">${effectivePlan.ctaText}</button>
     </article>
   `;
 }
@@ -265,13 +303,14 @@ function colorizePlanName(title) {
 }
 
 function featuresBlock(plan) {
+  const effectivePlan = getEffectivePlan(plan);
   return `
     <article class="features-card block-card">
-      <p class="group-title">${colorizePlanName(plan.featureTitle)}</p>
+      <p class="group-title">${colorizePlanName(effectivePlan.featureTitle)}</p>
       <ul class="feature-list">
-        ${plan.features.map(featureHtml).join("")}
+        ${effectivePlan.features.map(featureHtml).join("")}
       </ul>
-      ${plan.aiAssistants ? `<p class="ai-label">AI assistants <span>NEW</span></p><ul class="feature-list">${plan.aiAssistants.map(featureHtml).join("")}</ul>` : ""}
+      ${effectivePlan.aiAssistants ? `<p class="ai-label">AI assistants <span>NEW</span></p><ul class="feature-list">${effectivePlan.aiAssistants.map(featureHtml).join("")}</ul>` : ""}
     </article>
   `;
 }

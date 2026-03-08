@@ -387,7 +387,6 @@ function mobileLayout() {
   const visiblePlans = getVisiblePlans();
   const root = document.getElementById("mobilePricing");
   root.innerHTML = visiblePlans.map((plan) => mobileCard(plan)).join("");
-  syncMobileFeatureCardHeights();
 }
 
 function updatePriceTexts() {
@@ -401,26 +400,6 @@ function updatePriceTexts() {
 function renderPricing() {
   desktopLayout();
   mobileLayout();
-}
-
-function setExpandedCardHeight(card) {
-  if (!card) return;
-  card.style.removeProperty("--expanded-height");
-  requestAnimationFrame(() => {
-    const expandedHeight = card.scrollHeight + 36;
-    card.style.setProperty("--expanded-height", `${expandedHeight}px`);
-  });
-}
-
-function syncMobileFeatureCardHeights() {
-  const cards = document.querySelectorAll(".mobile-card .features-card.is-collapsible");
-  cards.forEach((card) => {
-    if (!card.classList.contains("is-expanded")) {
-      card.style.removeProperty("--expanded-height");
-      return;
-    }
-    setExpandedCardHeight(card);
-  });
 }
 
 function setPeriod(period) {
@@ -517,11 +496,6 @@ function initMobileFeatureToggle() {
     if (!card) return;
 
     const isExpandedNow = card.classList.toggle("is-expanded");
-    if (isExpandedNow) {
-      setExpandedCardHeight(card);
-    } else {
-      card.style.removeProperty("--expanded-height");
-    }
 
     if (expandedFeatureCards.has(key)) {
       expandedFeatureCards.delete(key);
@@ -532,7 +506,6 @@ function initMobileFeatureToggle() {
   });
 
   root.dataset.featureToggleBound = "1";
-  window.addEventListener("resize", syncMobileFeatureCardHeights);
 }
 
 function initStickyTopTabs() {
@@ -541,12 +514,31 @@ function initStickyTopTabs() {
   if (!tabs || !sentinel) return;
 
   const mobileQuery = window.matchMedia("(max-width: 980px)");
-  let observer = null;
+  let ticking = false;
+  let isBound = false;
+
+  const updateStickyState = () => {
+    ticking = false;
+    if (!mobileQuery.matches) {
+      tabs.classList.remove("is-stuck");
+      return;
+    }
+    const shouldStick = sentinel.getBoundingClientRect().top <= 0;
+    tabs.classList.toggle("is-stuck", shouldStick);
+  };
+
+  const onScrollOrResize = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateStickyState);
+  };
 
   const cleanup = () => {
-    if (observer) {
-      observer.disconnect();
-      observer = null;
+    if (isBound) {
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      window.removeEventListener("orientationchange", onScrollOrResize);
+      isBound = false;
     }
     tabs.classList.remove("is-stuck");
   };
@@ -554,15 +546,11 @@ function initStickyTopTabs() {
   const setup = () => {
     cleanup();
     if (!mobileQuery.matches) return;
-
-    observer = new IntersectionObserver(
-      ([entry]) => {
-        tabs.classList.toggle("is-stuck", !entry.isIntersecting);
-      },
-      { threshold: [1] }
-    );
-
-    observer.observe(sentinel);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
+    window.addEventListener("orientationchange", onScrollOrResize);
+    isBound = true;
+    updateStickyState();
   };
 
   setup();

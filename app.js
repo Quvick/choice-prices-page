@@ -35,6 +35,7 @@
 let currentPeriod = "monthly";
 let currentLocationMode = "single";
 let currentChainTier = "loc2";
+const expandedFeatureCards = new Set();
 
 const chainDiscounts = {
   loc2: 10,
@@ -302,15 +303,41 @@ function colorizePlanName(title) {
     .replace("Smart", "<span>Smart</span>");
 }
 
-function featuresBlock(plan) {
+function isMobileFeatureCollapsible(plan) {
+  return plan.name === "Basic" || (plan.name === "Standard" && currentLocationMode === "multi");
+}
+
+function getFeatureCardKey(plan) {
+  return `${currentLocationMode}:${plan.name}`;
+}
+
+function featuresBlock(plan, options = {}) {
   const effectivePlan = getEffectivePlan(plan);
+  const { collapsible = false, collapsed = false, featureKey = "" } = options;
+  const cardClasses = [
+    "features-card",
+    "block-card",
+    collapsible ? "is-collapsible" : "",
+    collapsible && !collapsed ? "is-expanded" : ""
+  ].filter(Boolean).join(" ");
+
+  const collapsedToggle = collapsible
+    ? `<div class="features-fade"><button class="feature-toggle-btn" type="button" data-feature-toggle="${featureKey}">Show more</button></div>`
+    : "";
+
+  const expandedToggle = collapsible
+    ? `<div class="features-toggle-row"><button class="feature-toggle-btn" type="button" data-feature-toggle="${featureKey}">Show less</button></div>`
+    : "";
+
   return `
-    <article class="features-card block-card">
+    <article class="${cardClasses}" ${collapsible ? `data-feature-key="${featureKey}"` : ""}>
       <p class="group-title">${colorizePlanName(effectivePlan.featureTitle)}</p>
       <ul class="feature-list">
         ${effectivePlan.features.map(featureHtml).join("")}
       </ul>
       ${effectivePlan.aiAssistants ? `<p class="ai-label">AI assistants <span>NEW</span></p><ul class="feature-list">${effectivePlan.aiAssistants.map(featureHtml).join("")}</ul>` : ""}
+      ${expandedToggle}
+      ${collapsedToggle}
     </article>
   `;
 }
@@ -341,13 +368,16 @@ function desktopLayout() {
 
 function mobileCard(plan) {
   const hasOffPlan = Array.isArray(plan.offPlan) && plan.offPlan.length > 0;
+  const collapsibleFeatures = isMobileFeatureCollapsible(plan);
+  const featureKey = getFeatureCardKey(plan);
+  const collapsedFeatures = collapsibleFeatures && !expandedFeatureCards.has(featureKey);
   return `
     <article class="mobile-card">
       ${planHeader(plan)}
       <p class="section-label">Order fee:</p>
       ${feeBlock(plan)}
       <p class="section-label">Features:</p>
-      ${featuresBlock(plan)}
+      ${featuresBlock(plan, { collapsible: collapsibleFeatures, collapsed: collapsedFeatures, featureKey })}
       ${hasOffPlan ? `<p class="section-label">Off-plan features upon request:</p>${offPlanBlock(plan)}` : ""}
     </article>
   `;
@@ -357,6 +387,7 @@ function mobileLayout() {
   const visiblePlans = getVisiblePlans();
   const root = document.getElementById("mobilePricing");
   root.innerHTML = visiblePlans.map((plan) => mobileCard(plan)).join("");
+  syncMobileFeatureCardHeights();
 }
 
 function updatePriceTexts() {
@@ -370,6 +401,26 @@ function updatePriceTexts() {
 function renderPricing() {
   desktopLayout();
   mobileLayout();
+}
+
+function setExpandedCardHeight(card) {
+  if (!card) return;
+  card.style.removeProperty("--expanded-height");
+  requestAnimationFrame(() => {
+    const expandedHeight = card.scrollHeight + 36;
+    card.style.setProperty("--expanded-height", `${expandedHeight}px`);
+  });
+}
+
+function syncMobileFeatureCardHeights() {
+  const cards = document.querySelectorAll(".mobile-card .features-card.is-collapsible");
+  cards.forEach((card) => {
+    if (!card.classList.contains("is-expanded")) {
+      card.style.removeProperty("--expanded-height");
+      return;
+    }
+    setExpandedCardHeight(card);
+  });
 }
 
 function setPeriod(period) {
@@ -451,6 +502,39 @@ function initLocationControls() {
   setLocationMode(currentLocationMode);
 }
 
+function initMobileFeatureToggle() {
+  const root = document.getElementById("mobilePricing");
+  if (!root || root.dataset.featureToggleBound === "1") return;
+
+  root.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-feature-toggle]");
+    if (!button) return;
+
+    const key = button.dataset.featureToggle;
+    if (!key) return;
+
+    const card = button.closest(".features-card.is-collapsible");
+    if (!card) return;
+
+    const isExpandedNow = card.classList.toggle("is-expanded");
+    if (isExpandedNow) {
+      setExpandedCardHeight(card);
+    } else {
+      card.style.removeProperty("--expanded-height");
+    }
+
+    if (expandedFeatureCards.has(key)) {
+      expandedFeatureCards.delete(key);
+    }
+    if (isExpandedNow) {
+      expandedFeatureCards.add(key);
+    }
+  });
+
+  root.dataset.featureToggleBound = "1";
+  window.addEventListener("resize", syncMobileFeatureCardHeights);
+}
+
 function initStickyTopTabs() {
   const tabs = document.querySelector(".top-tabs");
   const sentinel = document.querySelector(".tabs-sticky-sentinel");
@@ -493,6 +577,7 @@ desktopLayout();
 mobileLayout();
 initPeriodTabs();
 initLocationControls();
+initMobileFeatureToggle();
 initStickyTopTabs();
 
 

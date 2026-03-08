@@ -33,6 +33,15 @@
 };
 
 let currentPeriod = "monthly";
+let currentLocationMode = "single";
+let currentChainTier = "loc2";
+
+const chainDiscounts = {
+  loc2: 10,
+  loc5: 20,
+  loc10: 30,
+  loc20: 40
+};
 
 const plans = [
   {
@@ -80,9 +89,9 @@ const plans = [
     descriptionStrong: "For busy places ready to grow sales.",
     description: "Add reservations, better tools, and more ways to convert guests.",
     prices: {
-      monthly: "\u20AC40/mo",
-      month12: "\u20AC36/mo",
-      month24: "\u20AC31/mo"
+      monthly: 40,
+      month12: 36,
+      month24: 31
     },
     ctaText: "Start a free trial",
     ctaClass: "accent",
@@ -107,9 +116,9 @@ const plans = [
     descriptionStrong: "For restaurants focused on retention.",
     description: "Loyalty, gifts, SMS marketing, and advanced growth features.",
     prices: {
-      monthly: "\u20AC85/mo",
-      month12: "\u20AC77/mo",
-      month24: "\u20AC66/mo"
+      monthly: 85,
+      month12: 77,
+      month24: 66
     },
     ctaText: "Start a free trial",
     ctaClass: "accent",
@@ -136,9 +145,9 @@ const plans = [
     descriptionStrong: "For multi-location and advanced operations.",
     description: "POS, AI features, deeper analytics, and enterprise support.",
     prices: {
-      monthly: "\u20AC125/mo",
-      month12: "\u20AC113/mo",
-      month24: "\u20AC98/mo"
+      monthly: 125,
+      month12: 113,
+      month24: 98
     },
     ctaText: "Contact sales",
     ctaClass: "dark",
@@ -195,8 +204,24 @@ function offPlanHtml(item) {
   `;
 }
 
+function formatPriceNumber(value) {
+  const rounded = Math.round(value * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
+function getPlanPriceLabel(plan) {
+  const base = plan.prices[currentPeriod];
+  if (typeof base !== "number") {
+    return base || plan.prices.monthly;
+  }
+
+  const chainDiscount = currentLocationMode === "multi" ? (chainDiscounts[currentChainTier] || 0) : 0;
+  const finalPrice = base * (1 - chainDiscount / 100);
+  return `\u20AC${formatPriceNumber(finalPrice)}/mo`;
+}
+
 function planHeader(plan, index) {
-  const price = plan.prices[currentPeriod] || plan.prices.monthly;
+  const price = getPlanPriceLabel(plan);
   return `
     <article class="header-card">
       <div>
@@ -287,8 +312,7 @@ function updatePriceTexts() {
     const index = Number(node.dataset.planIndex);
     const plan = plans[index];
     if (!plan) return;
-    const price = plan.prices[currentPeriod] || plan.prices.monthly;
-    node.textContent = price;
+    node.textContent = getPlanPriceLabel(plan);
   });
 }
 
@@ -308,18 +332,67 @@ function initPeriodTabs() {
   });
 }
 
-function initMobileLocationSwitch() {
-  const switcher = document.querySelector(".mobile-location-switch");
-  if (!switcher) return;
+function setChainTier(tier) {
+  if (!chainDiscounts[tier]) return;
+  currentChainTier = tier;
 
-  const buttons = switcher.querySelectorAll(".pill[data-location]");
-  buttons.forEach((button) => {
+  document.querySelectorAll("[data-chain]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.chain === tier);
+  });
+
+  updatePriceTexts();
+}
+
+function setLocationMode(mode) {
+  currentLocationMode = mode;
+
+  document.querySelectorAll("[data-location-tab]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.locationTab === mode);
+  });
+
+  const mobileSwitcher = document.querySelector(".mobile-location-switch");
+  if (mobileSwitcher) {
+    mobileSwitcher.dataset.location = mode;
+    mobileSwitcher.querySelectorAll(".pill[data-location]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.location === mode);
+    });
+  }
+
+  const showChain = mode === "multi";
+  const desktopChainTabs = document.getElementById("desktopChainTabs");
+  const mobileChainTabs = document.getElementById("mobileChainTabs");
+
+  if (desktopChainTabs) {
+    desktopChainTabs.classList.toggle("visible", showChain);
+  }
+  if (mobileChainTabs) {
+    mobileChainTabs.classList.toggle("visible", showChain);
+  }
+
+  updatePriceTexts();
+}
+
+function initLocationControls() {
+  document.querySelectorAll("[data-location-tab]").forEach((button) => {
     button.addEventListener("click", () => {
-      const mode = button.dataset.location;
-      switcher.dataset.location = mode;
-      buttons.forEach((item) => item.classList.toggle("active", item.dataset.location === mode));
+      setLocationMode(button.dataset.locationTab);
     });
   });
+
+  document.querySelectorAll(".mobile-location-switch .pill[data-location]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setLocationMode(button.dataset.location);
+    });
+  });
+
+  document.querySelectorAll("[data-chain]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setChainTier(button.dataset.chain);
+    });
+  });
+
+  setChainTier(currentChainTier);
+  setLocationMode(currentLocationMode);
 }
 
 function initStickyTopTabs() {
@@ -363,7 +436,7 @@ function initStickyTopTabs() {
 desktopLayout();
 mobileLayout();
 initPeriodTabs();
-initMobileLocationSwitch();
+initLocationControls();
 initStickyTopTabs();
 
 

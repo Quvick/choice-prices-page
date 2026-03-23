@@ -181,8 +181,8 @@ const plans = [
       month12: 113,
       month24: 98
     },
-    ctaText: "Contact sales",
-    ctaClass: "dark",
+    ctaText: "Start a free trial",
+    ctaClass: "accent",
     fee: "0%",
     feeGreen: true,
     feeCondition: "Online payments & Cash",

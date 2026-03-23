@@ -23,12 +23,6 @@
             <button class="pill active" type="button" data-location="single">Single location</button>
             <button class="pill" type="button" data-location="multi">Multi-location (Chain)</button>
           </div>
-          <div class="mobile-chain-tabs" id="mobileChainTabs" aria-label="Network size">
-            <button class="chain-tab active" type="button" data-chain="loc2">2+ locations</button>
-            <button class="chain-tab" type="button" data-chain="loc5">5+</button>
-            <button class="chain-tab" type="button" data-chain="loc10">10+</button>
-            <button class="chain-tab" type="button" data-chain="loc20">20+</button>
-          </div>
         </section>
       </div>
     </section>
@@ -39,12 +33,6 @@
         <div class="tabs-left">
           <button class="tab active" type="button" data-location-tab="single">Single location</button>
           <button class="tab" type="button" data-location-tab="multi">Multi-location (Chain)</button>
-          <div class="chain-tabs" id="desktopChainTabs" aria-label="Network size">
-            <button class="chain-tab active" type="button" data-chain="loc2">2+ locations</button>
-            <button class="chain-tab" type="button" data-chain="loc5">5+</button>
-            <button class="chain-tab" type="button" data-chain="loc10">10+</button>
-            <button class="chain-tab" type="button" data-chain="loc20">20+</button>
-          </div>
         </div>
         <div class="tabs-right">
           <button class="tab active" type="button" data-period="monthly">Monthly</button>
@@ -56,6 +44,7 @@
 
     <section class="page">
       <section class="pricing" aria-label="Pricing plans">
+        <div class="chain-info" id="chainInfo"></div>
         <div class="desktop-pricing" id="desktopPricing"></div>
         <div class="mobile-pricing" id="mobilePricing"></div>
       </section>

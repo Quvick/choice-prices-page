@@ -38,14 +38,21 @@ const icons = {
 
 let currentPeriod = "monthly";
 let currentLocationMode = "single";
-let currentChainTier = "loc2";
+let currentChainTier = "loc3";
 const expandedFeatureCards = new Set();
 
 const chainDiscounts = {
-  loc2: 10,
+  loc3: 10,
   loc5: 20,
   loc10: 30,
   loc20: 40
+};
+
+const chainTierLabels = {
+  loc3: "3",
+  loc5: "5+ locations",
+  loc10: "10+ locations",
+  loc20: "20+ locations"
 };
 
 const featureHints = {
@@ -274,6 +281,13 @@ function getPlanPriceLabel(plan) {
   return `\u20AC${formatPriceNumber(finalPrice)}/mo`;
 }
 
+function getPlanNumericPrice(plan) {
+  const base = plan.prices[currentPeriod];
+  if (typeof base !== "number") return null;
+  const chainDiscount = currentLocationMode === "multi" ? (chainDiscounts[currentChainTier] || 0) : 0;
+  return base * (1 - chainDiscount / 100);
+}
+
 function getVisiblePlans() {
   if (currentLocationMode === "multi") {
     return plans.filter((plan) => plan.name !== "Basic");
@@ -442,6 +456,47 @@ function mobileLayout() {
   root.innerHTML = visiblePlans.map((plan) => mobileCard(plan)).join("");
 }
 
+function chainInfoLayout() {
+  const root = document.getElementById("chainInfo");
+  if (!root) return;
+
+  if (currentLocationMode !== "multi") {
+    root.classList.remove("visible");
+    root.innerHTML = "";
+    return;
+  }
+
+  const visiblePlans = plans.filter((plan) => plan.name !== "Basic");
+  if (!visiblePlans.length) return;
+
+  root.classList.add("visible");
+  root.innerHTML = `
+    <article class="chain-info-card">
+      <div class="chain-info-top-image-wrap" aria-hidden="true">
+        <img class="chain-info-top-image" src="https://www.figma.com/api/mcp/asset/c1ee5a72-eb62-427c-b5fa-65c1e0895702" alt="" />
+      </div>
+      <div class="chain-info-form">
+        <div class="chain-info-brand">
+          <img class="chain-info-brand-icon" src="https://www.figma.com/api/mcp/asset/cbef1060-bac3-4f91-a936-3fa48a9af1e1" alt="" />
+          <p class="chain-info-brand-text">Choice for chains</p>
+        </div>
+        <h2 class="chain-info-title">Do you have 3+ locations?</h2>
+        <p class="chain-info-text">Get individual quality and best price not available for public</p>
+        <div class="chain-info-locations">
+          <p class="chain-info-label">How many locations do you have?</p>
+          <div class="chain-info-tabs" aria-label="Network size">
+            <button class="chain-tab ${currentChainTier === "loc3" ? "active" : ""}" type="button" data-chain="loc3">3</button>
+            <button class="chain-tab ${currentChainTier === "loc5" ? "active" : ""}" type="button" data-chain="loc5">5+</button>
+            <button class="chain-tab ${currentChainTier === "loc10" ? "active" : ""}" type="button" data-chain="loc10">10+</button>
+            <button class="chain-tab ${currentChainTier === "loc20" ? "active" : ""}" type="button" data-chain="loc20">20+</button>
+          </div>
+        </div>
+        <button class="cta dark chain-info-cta" type="button">Contact sales</button>
+      </div>
+    </article>
+  `;
+}
+
 function updatePriceTexts() {
   document.querySelectorAll(".price[data-plan-name]").forEach((node) => {
     const plan = getPlanByName(node.dataset.planName);
@@ -451,6 +506,14 @@ function updatePriceTexts() {
 }
 
 function renderPricing() {
+  chainInfoLayout();
+  if (currentLocationMode === "multi") {
+    const desktopRoot = document.getElementById("desktopPricing");
+    const mobileRoot = document.getElementById("mobilePricing");
+    if (desktopRoot) desktopRoot.innerHTML = "";
+    if (mobileRoot) mobileRoot.innerHTML = "";
+    return;
+  }
   desktopLayout();
   mobileLayout();
 }
@@ -460,6 +523,10 @@ function setPeriod(period) {
   document.querySelectorAll(".tabs-right .tab[data-period]").forEach((tab) => {
     tab.classList.toggle("active", tab.dataset.period === period);
   });
+  if (currentLocationMode === "multi") {
+    renderPricing();
+    return;
+  }
   updatePriceTexts();
 }
 
@@ -479,6 +546,9 @@ function setChainTier(tier) {
     button.classList.toggle("active", button.dataset.chain === tier);
   });
 
+  if (currentLocationMode === "multi") {
+    return;
+  }
   updatePriceTexts();
 }
 
@@ -490,22 +560,19 @@ function setLocationMode(mode) {
   });
 
   const mobileSwitcher = document.querySelector(".mobile-location-switch");
+  const periodTabs = document.querySelector(".tabs-right");
+  const topTabs = document.querySelector(".top-tabs");
   if (mobileSwitcher) {
     mobileSwitcher.dataset.location = mode;
     mobileSwitcher.querySelectorAll(".pill[data-location]").forEach((button) => {
       button.classList.toggle("active", button.dataset.location === mode);
     });
   }
-
-  const showChain = mode === "multi";
-  const desktopChainTabs = document.getElementById("desktopChainTabs");
-  const mobileChainTabs = document.getElementById("mobileChainTabs");
-
-  if (desktopChainTabs) {
-    desktopChainTabs.classList.toggle("visible", showChain);
+  if (periodTabs) {
+    periodTabs.classList.toggle("is-hidden", mode === "multi");
   }
-  if (mobileChainTabs) {
-    mobileChainTabs.classList.toggle("visible", showChain);
+  if (topTabs) {
+    topTabs.classList.toggle("is-multi-mode", mode === "multi");
   }
 
   renderPricing();
@@ -524,10 +591,10 @@ function initLocationControls() {
     });
   });
 
-  document.querySelectorAll("[data-chain]").forEach((button) => {
-    button.addEventListener("click", () => {
-      setChainTier(button.dataset.chain);
-    });
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-chain]");
+    if (!button) return;
+    setChainTier(button.dataset.chain);
   });
 
   setChainTier(currentChainTier);

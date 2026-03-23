@@ -153,6 +153,21 @@ h1 {
   touch-action: manipulation;
 }
 
+.tab-discount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.tab-label {
+  color: inherit;
+}
+
+.tab-badge {
+  color: var(--green-strong);
+}
+
 .tab:hover {
   color: var(--accent);
 }
